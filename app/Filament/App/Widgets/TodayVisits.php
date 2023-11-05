@@ -37,12 +37,12 @@ class TodayVisits extends BaseWidget
             Tables\Columns\TextColumn::make('arrival')
                 ->label('Arrival')
                 ->formatStateUsing(function (Model $record) {
-                    return Carbon::createFromFormat('Y-m-d h:i:s', $record->arrival)->format('h:i:sa');
+                    return Carbon::createFromFormat('Y-m-d H:i:s', $record->arrival)->format('H:i:sa');
                 }),
             Tables\Columns\TextColumn::make('departure')
                 ->label('Departure')
                 ->formatStateUsing(function (Model $record) {
-                    return Carbon::createFromFormat('Y-m-d h:i:s', $record->departure)->format('h:i:sa');
+                    return Carbon::createFromFormat('Y-m-d H:i:s', $record->departure)->format('H:i:sa');
                 }),
         ])
         ->paginated(false)
