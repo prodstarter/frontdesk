@@ -24,13 +24,11 @@ class DepartmentResource extends Resource
 {
     protected static ?string $model = Department::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-user-group';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-group';
 
     protected static ?string $slug = 'manage/departments';
 
-    protected static ?int $navigationSort = 3;
-
-    protected static ?string $navigationGroup = 'Employee Management';
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {

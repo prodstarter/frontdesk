@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Admin\Resources;
+namespace App\Filament\App\Resources;
 
 use App\Models\{Visit};
 use Filament\{
@@ -10,7 +10,8 @@ use Filament\{
     Tables\Table,
     Resources\Resource,
 };
-use App\Filament\Admin\Resources\VisitResource\Pages;
+use Filament\Tables\Actions\Action;
+use App\Filament\App\Resources\VisitResource\Pages;
 
 class VisitResource extends Resource
 {
@@ -21,8 +22,6 @@ class VisitResource extends Resource
     protected static ?string $slug = 'manage/visits';
 
     protected static ?int $navigationSort = 4;
-
-    protected static ?string $navigationGroup = 'Guest Book';
 
     public static function form(Form $form): Form
     {
@@ -74,13 +73,13 @@ class VisitResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Action::make('markDepart')
+                    ->requiresConfirmation()
+                    ->action(function (Visit $record) {
+                        $record->departure = now();
+                        $record->save();
+                    })
+                    ->hidden(fn (Visit $record): bool => $record->departure !== null),
             ]);
     }
 

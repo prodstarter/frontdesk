@@ -16,6 +16,14 @@ class Visit extends Model
 
     protected $guarded = [];
 
+    protected $dates = [
+        'arrival',
+        'departure',
+        'created_at',
+        'updated_at',
+        'deleted_at'
+    ];
+
     public function getRouteKeyName(): string
     {
         return 'uuid';

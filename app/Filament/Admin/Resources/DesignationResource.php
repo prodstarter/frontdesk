@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Company\Resources;
+namespace App\Filament\Admin\Resources;
 
 use App\Models\{
     Designation,
@@ -27,16 +27,12 @@ class DesignationResource extends Resource
 
     protected static ?string $slug = 'manage/designations';
 
-    protected static ?int $navigationSort = 2;
-
-    protected static ?string $navigationGroup = 'Employee Management';
+    protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Hidden::make('company_id')
-                    ->default(auth()->user()->currentCompany->id),
                 Forms\Components\TextInput::make('name')
                     ->label('Designation Name')
                     ->placeholder('Designation Name')
