@@ -2,6 +2,7 @@
 
 namespace App\Filament\Admin\Pages;
 
+use App\Filament\Admin\Widgets\VisitsChart;
 use Filament\Pages\Dashboard as FilamentDashboard;
 use App\Filament\Admin\Widgets\GeneralStatsOverview;
 
@@ -17,7 +18,8 @@ class Dashboard extends FilamentDashboard
     public function getWidgets(): array
     {
         return [
-            GeneralStatsOverview::class
+            GeneralStatsOverview::class,
+            VisitsChart::class,
         ];
     }
 
