@@ -29,6 +29,8 @@ class DesignationResource extends Resource
 
     protected static ?int $navigationSort = 3;
 
+    protected static ?string $navigationGroup = 'Employee Management';
+
     public static function form(Form $form): Form
     {
         return $form

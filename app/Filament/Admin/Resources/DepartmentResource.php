@@ -28,6 +28,8 @@ class DepartmentResource extends Resource
 
     protected static ?string $slug = 'manage/departments';
 
+    protected static ?string $navigationGroup = 'Employee Management';
+
     protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
