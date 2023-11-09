@@ -17,6 +17,8 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use App\Filament\App\Pages\Auth\Login;
+use App\Filament\App\Pages\Auth\Register;
 
 class AppPanelProvider extends PanelProvider
 {
@@ -25,7 +27,8 @@ class AppPanelProvider extends PanelProvider
         return $panel
             ->id('app')
             ->path('')
-            ->login()
+            ->login(Login::class)
+            ->registration(Register::class)
             ->passwordReset()
             ->colors([
                 'primary' => Color::Indigo,
