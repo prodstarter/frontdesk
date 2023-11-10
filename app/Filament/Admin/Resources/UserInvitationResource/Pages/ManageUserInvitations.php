@@ -45,7 +45,8 @@ class ManageUserInvitations extends ManageRecords
                          ->success()
                          ->title('Invitation Sent')
                          ->body('An email invitation has been successfully sent to the user'),
-                 ),
+                 )
+                 ->modalWidth('md'),
         ];
     }
 }

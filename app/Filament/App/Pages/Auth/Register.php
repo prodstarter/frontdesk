@@ -20,7 +20,7 @@ class Register extends BaseRegister
     #[Url]
     public $token = '';
 
-    private UserInvitation $invitation;
+    public ?UserInvitation $invitation = null;
 
     public ?array $data = [];
 
@@ -56,6 +56,8 @@ class Register extends BaseRegister
         $data = $this->form->getState();
 
         $user = $this->getUserModel()::create($data);
+
+        $this->invitation->delete();
 
         app()->bind(
             \Illuminate\Auth\Listeners\SendEmailVerificationNotification::class,
