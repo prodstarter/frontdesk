@@ -2,7 +2,10 @@
 
 namespace App\Providers\Filament;
 
-use App\Http\Middleware\AdminDashboardAccess;
+use App\Http\Middleware\{
+    AdminDashboardAccess,
+    RedirectIfNotFilamentAuthenticated,
+};
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -49,7 +52,7 @@ class AdminPanelProvider extends PanelProvider
                 RedirectIfNotInstalled::class,
             ])
             ->authMiddleware([
-                Authenticate::class,
+                RedirectIfNotFilamentAuthenticated::class,
             ]);
     }
 }
