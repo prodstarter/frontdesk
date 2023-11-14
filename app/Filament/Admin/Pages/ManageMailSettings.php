@@ -76,7 +76,7 @@ class ManageMailSettings extends SettingsPage
     {
         $data = $this->form->getState();
 
-        $this->putPermanentEnv('MAIL_DRIVER', $data['mail_driver']);
+        $this->putPermanentEnv('MAIL_MAILER', $data['mail_driver']);
         $this->putPermanentEnv('MAIL_HOST', $data['mail_host']);
         $this->putPermanentEnv('MAIL_PORT', $data['mail_port']);
         $this->putPermanentEnv('MAIL_USERNAME', $data['mail_username'] ?? null);
