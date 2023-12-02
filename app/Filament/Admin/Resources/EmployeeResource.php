@@ -3,9 +3,12 @@
 namespace App\Filament\Admin\Resources;
 
 use Closure;
+
 use App\Models\{
     Employee,
+    Designation,
 };
+
 use Filament\{
     Forms,
     Tables,
@@ -13,10 +16,14 @@ use Filament\{
     Tables\Table,
     Resources\Resource,
 };
-use Illuminate\Database\Eloquent\{
-    Builder,
-    SoftDeletingScope,
+
+use Illuminate\{
+    Support\Collection,
+    Database\Eloquent\Model,
+    Database\Eloquent\Builder,
+    Database\Eloquent\SoftDeletingScope,
 };
+
 use App\Rules\NumericallyDifferent;
 use App\Filament\Admin\Resources\EmployeeResource\Pages;
 use App\Filament\Admin\Resources\EmployeeResource\RelationManagers;
@@ -57,6 +64,7 @@ class EmployeeResource extends Resource
                             ->placeholder(__('Department'))
                             ->preload()
                             ->searchable()
+                            ->live()
                             ->createOptionForm([
                                 Forms\Components\TextInput::make('name')
                                     ->label(strval(__('Department Name')))
@@ -77,11 +85,13 @@ class EmployeeResource extends Resource
                                     ->modalWidth('lg');
                             }),
                         Forms\Components\Select::make('designation_id')
-                            ->relationship('Designation', fn () => "name")
                             ->label(__('Designation'))
-                            ->placeholder(__('Designation'))
-                            ->preload()
+                            ->relationship('designation', fn () => "name")
+                            ->options(fn (Forms\Get $get): Collection => Designation::query()
+                                ->where('department_id', $get('department_id'))
+                                ->pluck('name', 'id'))
                             ->searchable()
+                            ->preload()
                             ->createOptionForm([
                                 Forms\Components\TextInput::make('name')
                                     ->label(strval(__('Designation Name')))
@@ -114,10 +124,14 @@ class EmployeeResource extends Resource
                     ->label(__('Last Name'))
                     ->sortable(),
                 Tables\Columns\TextColumn::make('department.name')
-                    ->label(__('Department Name'))
-                    ->sortable(),
+                    ->label(__('Department Name')),
                 Tables\Columns\TextColumn::make('designation.name')
-                    ->label(__('Designation Name'))
+                    ->label(__('Designation Name')),
+                Tables\Columns\TextColumn::make('visits')
+                    ->label(__('No of Visits'))
+                    ->state(function (Model $record) {
+                        return $record->visits->count();
+                    })
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Created at')
@@ -141,7 +155,7 @@ class EmployeeResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\VisitsRelationManager::class,
         ];
     }
     

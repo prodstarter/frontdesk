@@ -67,6 +67,7 @@ class ManageGeneralSettings extends SettingsPage
         $data = $this->form->getState();
 
         $this->putPermanentEnv('APP_NAME', $data['site_name']);
+        $this->putPermanentEnv('APP_TIMEZONE', $data['timezone']);
 
         Artisan::call('config:clear');
 

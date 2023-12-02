@@ -86,7 +86,7 @@ class DepartmentsSeeder extends Seeder
         foreach ($default_departments as $default_department) {
             $department = Department::create($default_department);
             foreach ($default_designations as $designation) {
-                $designation['name'] = "{$designation['name']}, {$department['name']}";
+                $designation['name'] = "{$designation['name']}";
                 $department->designations()->save(Designation::create($designation));
             }
         }

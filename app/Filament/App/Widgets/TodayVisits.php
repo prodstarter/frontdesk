@@ -33,7 +33,7 @@ class TodayVisits extends BaseWidget
                 ->label(__('Visitor')),
             Tables\Columns\TextColumn::make('employee.full_name')
                 ->label(__('Host'))
-                ->description(fn (Visit $record): string => $record->employee->designation->name),
+                ->description(fn (Visit $record): string => "{$record->employee->designation->name}, {$record->employee->department->name}"),
             Tables\Columns\TextColumn::make('arrival')
                 ->label('Arrival')
                 ->formatStateUsing(function (Model $record) {
@@ -77,13 +77,14 @@ class TodayVisits extends BaseWidget
                                 name: 'employee',
                                 modifyQueryUsing: fn (Builder $query) => $query->orderBy('first_name')->orderBy('last_name'),
                             )
-                            ->getOptionLabelFromRecordUsing(fn (Model $record) => "{$record->first_name} {$record->last_name} - {$record->designation->name}")
+                            ->getOptionLabelFromRecordUsing(fn (Model $record) => "{$record->first_name} {$record->last_name} - {$record->designation->name}, {$record->department->name}")
                             ->searchable(['first_name', 'last_name'])
                             ->preload()
                             ->loadingMessage('Loading employees...'),
                         Forms\Components\Textarea::make('purpose')
                             ->label('Purpose')
                             ->placeholder('Purpose')
+                            ->columnspan('full')
                         ])
                     ])
                 ->mutateFormDataUsing(function (array $data): array {

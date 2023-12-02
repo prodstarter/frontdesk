@@ -2,16 +2,33 @@
 
 namespace App\Filament\App\Resources;
 
-use App\Models\{Visit};
+use Carbon\{
+    Carbon,
+};
+
+use App\Models\{
+    Visit
+};
+
 use Filament\{
     Forms,
     Tables,
     Forms\Form,
     Tables\Table,
+    Infolists\Infolist,
     Resources\Resource,
+    Tables\Actions\Action,
+    Tables\Actions\CreateAction,
+    Infolists\Components\IconEntry,
+    Infolists\Components\TextEntry,
 };
-use Filament\Tables\Actions\Action;
-use Illuminate\Database\Eloquent\Builder;
+
+use Illuminate\{
+    Database\Eloquent\Model,
+    Database\Eloquent\Builder,
+    Database\Eloquent\SoftDeletingScope,
+};
+
 use App\Filament\App\Resources\VisitResource\Pages;
 
 class VisitResource extends Resource
@@ -28,23 +45,7 @@ class VisitResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('visitor')
-                    ->label('Visitor')
-                    ->placeholder('Visitor')
-                    ->required(),
-                Forms\Components\TextInput::make('visitor_phone')
-                    ->label('Visitor Phone')
-                    ->placeholder('Visitor Phone'),
-                Forms\Components\TextInput::make('visitor_email')
-                    ->label('Visitor Email')
-                    ->placeholder('Visitor Email'),
-                Forms\Components\Select::make('employee_id')
-                    ->label('Host')
-                    ->placeholder('Select Host')
-                    ->relationship('employee', fn () => 'first_name'),
-                Forms\Components\Textarea::make('purpose')
-                    ->label('Purpose')
-                    ->placeholder('Purpose'),
+                
             ]);
     }
 
@@ -54,20 +55,27 @@ class VisitResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('visitor')
                     ->label(__('Visitor'))
-                    ->sortable(),
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('employee.full_name')
                     ->label(__('Host'))
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('date')
+                    ->label('Date')
+                    ->state(function (Model $record) {
+                        return Carbon::createFromFormat('Y-m-d H:i:s', $record->arrival)->format('Y-m-d');
+                    })
                     ->sortable(),
                 Tables\Columns\TextColumn::make('arrival')
                     ->label('Arrival')
-                    ->dateTime()
-                    ->sortable()
-                    ->searchable(),
+                    ->formatStateUsing(function (Model $record) {
+                        return Carbon::createFromFormat('Y-m-d H:i:s', $record->arrival)->format('H:i:sa');
+                    })
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('departure')
                     ->label('Departure')
-                    ->dateTime()
-                    ->sortable()
-                    ->searchable(),
+                    ->formatStateUsing(function (Model $record) {
+                        return Carbon::createFromFormat('Y-m-d H:i:s', $record->departure)->format('H:i:sa');
+                    }),
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
@@ -109,7 +117,25 @@ class VisitResource extends Resource
                         $record->save();
                     })
                     ->hidden(fn (Visit $record): bool => $record->departure !== null),
+                Tables\Actions\ViewAction::make(),
             ]);
+    }
+
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                TextEntry::make('visitor_email')
+                    ->label('Email'),
+                TextEntry::make('visitor_phone')
+                    ->label('Phone Number'),
+                TextEntry::make('purpose')
+                    ->label('Purpose for Visit'),
+                TextEntry::make('created_at')
+                    ->dateTime(),
+            ])
+            ->columns(1)
+            ->inlineLabel();
     }
 
     public static function getPages(): array
