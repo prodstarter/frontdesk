@@ -8,5 +8,6 @@ return new class extends SettingsMigration
     {
         $this->migrator->add('general.site_name', config('app.name'));
         $this->migrator->add('general.site_logo');
+        $this->migrator->add('general.timezone');
     }
 };

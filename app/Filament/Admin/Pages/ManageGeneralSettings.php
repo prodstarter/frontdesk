@@ -4,11 +4,12 @@ namespace App\Filament\Admin\Pages;
 
 use Filament\Forms;
 use App\Models\User;
+use Filament\Pages\SettingsPage;
 use App\Settings\GeneralSettings;
 use Filament\Pages\Actions\Action;
-use Filament\Pages\SettingsPage;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Contracts\Support\Htmlable;
+use Tapp\FilamentTimezoneField\Forms\Components\TimezoneSelect;
 
 class ManageGeneralSettings extends SettingsPage
 {
@@ -49,6 +50,11 @@ class ManageGeneralSettings extends SettingsPage
                                         ->label(__('Site name'))
                                         ->helperText(__('This is the platform name'))
                                         ->default(fn() => config('app.name'))
+                                        ->required(),
+
+                                    TimezoneSelect::make('timezone')
+                                        ->label(__('Timezone'))
+                                        ->searchable()
                                         ->required(),
                                 ]),
                     ]),

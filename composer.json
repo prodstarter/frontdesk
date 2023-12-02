@@ -18,7 +18,8 @@
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
         "leandrocfe/filament-apex-charts": "^3.0",
-        "shipu/web-installer": "^1.0"
+        "shipu/web-installer": "^1.0",
+        "tapp/filament-timezone-field": "^3.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
