@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('visits', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->index()->unique();
+            $table->foreignId('company_id')->references('id')->on('companies')->onDelete('cascade');
             $table->foreignId('employee_id')->nullable()->constrained()->nullOnDelete();
             $table->string('visitor');
             $table->string('visitor_phone')->nullable();

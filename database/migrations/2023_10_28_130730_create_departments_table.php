@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid');
+            $table->foreignId('company_id')->references('id')->on('companies')->onDelete('cascade');
             $table->string('name');
             $table->text('description')->nullable();
             $table->unsignedBigInteger('parent_id')->nullable();

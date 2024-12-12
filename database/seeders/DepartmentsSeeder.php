@@ -84,10 +84,12 @@ class DepartmentsSeeder extends Seeder
             ]
         ];
         foreach ($default_departments as $default_department) {
-            $department = Department::create($default_department);
+            $company = \App\Models\Company::factory()->create();
+            $department = Department::create(array_merge($default_department, ['company_id' => $company->id]));
             foreach ($default_designations as $designation) {
                 $designation['name'] = "{$designation['name']}";
-                $department->designations()->save(Designation::create($designation));
+                $company2 = \App\Models\Company::factory()->create();
+                $department->designations()->save(Designation::create(array_merge($designation, ['company_id' => $company2->id])));
             }
         }
     }

@@ -20,14 +20,15 @@ class Employee extends Model
         'first_name',
         'last_name',
         'department_id',
-        'designation_id', 
+        'designation_id',
+        'company_id',
     ];
 
     protected $appends = ['full_name'];
 
-    public function getFullNameAttribute () 
+    public function getFullNameAttribute()
     {
-        return $this->first_name.' '.$this->last_name;  
+        return $this->first_name . ' ' . $this->last_name;
     }
     /**
      * > This function returns the designation of the user
@@ -51,5 +52,10 @@ class Employee extends Model
     public function visits()
     {
         return $this->hasMany(Visit::class, 'employee_id');
+    }
+
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class);
     }
 }

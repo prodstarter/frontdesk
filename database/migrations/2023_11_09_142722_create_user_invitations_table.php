@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('user_invitations', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('company_id')->references('id')->on('companies')->onDelete('cascade');
             $table->string('email')->unique();
             $table->string('code', 32)->unique()->nullable();
             $table->timestamps();

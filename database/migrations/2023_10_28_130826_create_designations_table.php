@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('designations', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid');
+            $table->foreignId('company_id')->references('id')->on('companies')->onDelete('cascade');
             $table->foreignId('department_id')->nullable()->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->timestamps();

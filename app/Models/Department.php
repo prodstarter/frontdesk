@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\UuidScopeTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Department extends Model
 {
@@ -19,6 +20,7 @@ class Department extends Model
     protected $fillable = [
         'name',
         'description',
+        'company_id',
         'parent_id',
     ];
 
@@ -67,5 +69,10 @@ class Department extends Model
     public function child_departments()
     {
         return $this->hasMany(Department::class, 'parent_id');
+    }
+
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class);
     }
 }
