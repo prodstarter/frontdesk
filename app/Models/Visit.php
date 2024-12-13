@@ -18,7 +18,6 @@ class Visit extends Model
 
     protected $dates = [
         'arrival',
-        'company_id',
         'departure',
         'created_at',
         'updated_at',
@@ -38,5 +37,10 @@ class Visit extends Model
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
+    }
+
+    public static function boot()
+    {
+        parent::boot();
     }
 }
