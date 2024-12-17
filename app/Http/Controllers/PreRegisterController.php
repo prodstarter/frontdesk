@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Company;
 use App\Models\PreRegistration;
 use Illuminate\Http\Request;
@@ -17,7 +18,29 @@ class PreRegisterController extends Controller
             abort(403, 'Invalid company id');
         }
 
-        return view('filament.pre-register')->with(['company' => $company->first()]);
+        $default_categories = [
+            'guests' => 'Guests',
+            'staff' => 'Staff',
+            'clients' => 'Clients',
+            'vendors' => 'Vendors',
+            'interviewees' => 'Interviewees',
+            'prospectiveClients' => 'Prospective Clients',
+            'deliveryPersonnel' => 'Delivery Personnel',
+            'students' => 'Students',
+            'contractEmployees' => 'Contract Employees',
+            'consultants' => 'Consultants',
+            'vip' => 'VIP',
+            'others' => 'Others',
+        ];
+
+        $main_categories = Category::where('company_id', $company->first()->id)->get()->pluck('name', 'name')->toArray();
+        $main_categories = array_change_key_case($main_categories, CASE_LOWER);
+
+
+        return view('filament.pre-register')->with([
+            'company' => $company->first(),
+            'categories' =>  empty($main_categories) ? $default_categories : $main_categories,
+        ]);
     }
 
 

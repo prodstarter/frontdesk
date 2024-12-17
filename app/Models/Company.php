@@ -34,6 +34,11 @@ class Company extends FilamentCompaniesCompany implements HasAvatar
         return $this->owner->profile_photo_url;
     }
 
+    public function categories(): HasMany
+    {
+        return $this->hasMany(Category::class);
+    }
+
     public function employees(): HasMany
     {
         return $this->hasMany(Employee::class);

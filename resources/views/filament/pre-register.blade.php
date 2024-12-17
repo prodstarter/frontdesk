@@ -99,6 +99,7 @@
                                 </select>
                             </div>
                             <!-- Category -->
+
                             <div>
                                 <label class="block text-gray-700 mb-1">Category</label>
                                 <select name="category"
@@ -107,19 +108,9 @@
                                     @error('category')
                                         <span class="text-red-500 text-sm">{{ $message }}</span>
                                     @enderror
-                                    <option value="guets">Guests</option>
-                                    <option value="staff">Staff</option>
-                                    <option value="guests">Guests</option>
-                                    <option value="clients">Clients</option>
-                                    <option value="vendors">Vendors</option>
-                                    <option value="interviewees">Interviewees</option>
-                                    <option value="prospectiveClients">Prospective Clients</option>
-                                    <option value="deliveryPersonnel">Delivery Personnel</option>
-                                    <option value="students">Students</option>
-                                    <option value="contractEmployees">Contract Employees</option>
-                                    <option value="consultants">Consultants</option>
-                                    <option value="vip">VIP</option>
-                                    <option value="others">Others</option>
+                                    @foreach ($categories as $key => $value)
+                                        <option value="{{ $key }}">{{ $value }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <!-- Address -->
