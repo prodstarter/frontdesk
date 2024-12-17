@@ -23,6 +23,7 @@ class CompanyFactory extends Factory
     public function definition(): array
     {
         return [
+            'uuid' => $this->faker->uuid(),
             'name' => $this->faker->unique()->company(),
             'user_id' => User::factory(),
             'personal_company' => true,

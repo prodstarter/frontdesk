@@ -63,4 +63,17 @@ class Company extends FilamentCompaniesCompany implements HasAvatar
     {
         return $this->hasMany(Visit::class);
     }
+
+    public function preRegistrations(): HasMany
+    {
+        return $this->hasMany(PreRegistration::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model) {
+            $model->uuid = str()->uuid();
+        });
+    }
 }

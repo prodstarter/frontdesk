@@ -35,7 +35,7 @@ class VisitResource extends Resource
 {
     protected static ?string $model = Visit::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-user-plus';
+    protected static ?string $navigationIcon = 'heroicon-o-user-circle';
 
     protected static ?string $slug = 'manage/visits';
 
