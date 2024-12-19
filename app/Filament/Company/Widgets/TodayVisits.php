@@ -54,6 +54,9 @@ class TodayVisits extends BaseWidget
                         $record->save();
                     })
                     ->hidden(fn(Visit $record): bool => $record->departure !== null),
+
+                Action::make('visitHistory')
+                    ->action(function () {})
             ])
             ->headerActions([
                 CreateAction::make()
@@ -80,14 +83,15 @@ class TodayVisits extends BaseWidget
                                     ->placeholder('Visitor Email'),
                                 Forms\Components\Select::make('employee_id')
                                     ->label('Host')
+                                    ->required()
                                     ->placeholder('Select Host')
+                                    ->preload()
                                     ->relationship(
                                         name: 'employee',
                                         modifyQueryUsing: fn(Builder $query) => $query->orderBy('first_name')->orderBy('last_name'),
                                     )
                                     ->getOptionLabelFromRecordUsing(fn(Model $record) => "{$record->first_name} {$record->last_name} - {$record->designation->name}, {$record->department->name}")
                                     ->searchable(['first_name', 'last_name'])
-                                    ->preload()
                                     ->loadingMessage('Loading employees...'),
                                 Forms\Components\Textarea::make('purpose')
                                     ->label('Purpose')

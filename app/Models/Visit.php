@@ -16,6 +16,8 @@ class Visit extends Model
 
     protected $guarded = [];
 
+    protected $table = 'visits';
+
     protected $dates = [
         'arrival',
         'departure',
@@ -37,10 +39,5 @@ class Visit extends Model
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
-    }
-
-    public static function boot()
-    {
-        parent::boot();
     }
 }

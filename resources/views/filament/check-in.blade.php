@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
+            rel="stylesheet">
+        <script src="https://cdn.tailwindcss.com"></script>
+        @vite('resources/css/app.css')
+        @vite('resources/js/app.js')
+    </head>
+
+    <body class="bg-gradient-to-br from-purple-100 via-white to-purple-200">
+
+        <main class="px-10 py-4 mb-20">
+            <div class="">
+                <div class="w-full flex items-center justify-between py-10">
+                    <div class="text-2xl font-bold text-blue-900">Epass</div>
+                    <div class="lg:flex items-center space-x-6 hidden">
+                        <a href="#" class="text-gray-600 hover:text-gray-900 text-lg font-semibold">Have
+                            Appointment</a>
+                        <a href="#" class="text-gray-600 hover:text-gray-900 text-lg font-semibold">Been here
+                            Before</a>
+                        <select class="text-gray-600 text-lg font-semibold bg-transparent border-none">
+                            <option value="en">English</option>
+                            <option value="fr">French</option>
+                        </select>
+                        <button
+                            class="bg-blue-600 text-white px-4 py-2 rounded-full text-lg font-semibold hover:bg-blue-700">Login</button>
+                    </div>
+
+                    <button class="lg:hidden" onclick="document.getElementById('mobileNav').style.display = 'block'">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-8">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        </svg>
+
+                    </button>
+                </div>
+                {{-- Mobile Nav --}}
+                <div class="px-10 py-14 fixed hidden transition-all duration-500 inset-0 z-20
+             w-screen h-screen bg-gradient-to-br from-purple-100 via-white to-purple-200"
+                    id="mobileNav">
+                    <div class="flex justify-between">
+                        <div class="text-2xl font-bold text-blue-900">Epass</div>
+                        <button class="" onclick="document.getElementById('mobileNav').style.display = 'none'">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="size-8">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="mt-20 flex flex-col text-2xl font-semibold">
+                        <a href="#" class="text-gray-600 hover:text-gray-900 mt-3">Have Appointment</a>
+                        <a href="#" class="text-gray-600 hover:text-gray-900 mt-3">Been here Before</a>
+                        <select class="text-gray-600 bg-transparent border-none mt-3">
+                            <option value="en">English</option>
+                            <option value="fr">French</option>
+                        </select>
+                        <button class="bg-blue-600  text-white py-2 rounded-full hover:bg-blue-700 mt-8">Login</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <section
+                class="flex flex-col md:flex-row justify-center md:justify-between items-center md:items-stretch gap-y-20
+                 lg:gap-y-0 mt-20 w-full">
+                <div>
+                    <div class="text-left sm:max-w-3xl">
+                        <h2 class="text-gray-500 text-lg font-semibold uppercase tracking-wide mb-2">Visitor Pass</h2>
+                        <h1 class="text-gray-900 font-extrabold text-xl md:text-3xl lg:text-4xl leading-tight">
+                            Visitor Pass <br> management system.
+                        </h1>
+                        <p class="text-gray-500 mt-4 text-lg font-semibold">Welcome, please tap on button to check-in
+                        </p>
+
+                        <!-- Action Buttons -->
+                        <div class="mt-8 flex items-center space-x-6">
+                            <button
+                                class="flex items-center px-6 py-3 bg-blue-600 text-white text-lg rounded-lg shadow-md hover:bg-blue-700">
+                                Check-in
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7" />
+                                </svg>
+                            </button>
+                            <button
+                                class="flex items-center px-6 py-3 bg-white text-blue-600 border border-blue-600 text-lg rounded-lg shadow-md hover:bg-blue-50">
+                                Scan QR
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 4h5v5H4V4zm11 0h5v5h-5V4zM4 15h5v5H4v-5zm11 0h5v5h-5v-5z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Decorative Scan Markers -->
+                <div class="">
+                    <div>
+                        <div class="relative w-64 h-64 border border-gray-300 bg-gray-50">
+                            <div class="absolute top-0 left-0 h-4 w-4 border-t-4 border-l-4 border-blue-500"></div>
+                            <div class="absolute top-0 right-0 h-4 w-4 border-t-4 border-r-4 border-blue-500"></div>
+                            <div class="absolute bottom-0 left-0 h-4 w-4 border-b-4 border-l-4 border-blue-500"></div>
+                            <div class="absolute bottom-0 right-0 h-4 w-4 border-b-4 border-r-4 border-blue-500"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+    </body>
+
+</html>

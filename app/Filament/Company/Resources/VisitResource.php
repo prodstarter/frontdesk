@@ -41,6 +41,10 @@ class VisitResource extends Resource
 
     protected static ?int $navigationSort = 4;
 
+    // public static function getEloquentQuery(): Builder
+    // {
+    //     return parent::getEloquentQuery()->where('company_id', 203);
+    // }
     public static function form(Form $form): Form
     {
         return $form

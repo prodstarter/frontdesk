@@ -63,4 +63,9 @@ class PreRegisterController extends Controller
         PreRegistration::create(array_merge($data, ['company_id' => $company->id]));
         return redirect()->back()->with(['message' => 'You are successfully pregesitered for ' . $company->name]);
     }
+
+    public function checkIn(Company $company)
+    {
+        return view('filament.check-in');
+    }
 }
