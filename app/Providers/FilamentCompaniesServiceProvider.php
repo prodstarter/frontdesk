@@ -11,6 +11,7 @@ use App\Actions\FilamentCompanies\RemoveCompanyEmployee;
 use App\Actions\FilamentCompanies\UpdateCompanyName;
 use App\Actions\FilamentCompanies\UpdateUserPassword;
 use App\Actions\FilamentCompanies\UpdateUserProfileInformation;
+use App\Filament\Company\Pages\CompanyDashboard;
 use App\Filament\Company\Pages\Dashboard;
 use Illuminate\Support\Facades\Auth;
 use Wallo\FilamentCompanies\Pages\Auth\Login;
@@ -75,7 +76,7 @@ class FilamentCompaniesServiceProvider extends PanelProvider
             ->discoverResources(in: app_path('Filament/Company/Resources'), for: 'App\\Filament\\Company\\Resources')
             ->discoverPages(in: app_path('Filament/Company/Pages'), for: 'App\\Filament\\Company\\Pages')
             ->pages([
-                Dashboard::class,
+                CompanyDashboard::class,
             ])
             ->userMenuItems([
                 'profile' => MenuItem::make()

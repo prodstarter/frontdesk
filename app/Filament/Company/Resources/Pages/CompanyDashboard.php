@@ -8,7 +8,7 @@ use App\Filament\Company\Widgets\VisitsChart;
 use App\Filament\Company\Widgets\WeeklyVisitChart;
 use Filament\Pages\Dashboard as FilamentDashboard;
 
-class Dashboard extends FilamentDashboard
+class CompanyDashboard extends FilamentDashboard
 {
     protected static bool $shouldRegisterNavigation = true;
 

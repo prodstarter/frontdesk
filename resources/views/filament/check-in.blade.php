@@ -15,16 +15,17 @@
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
             rel="stylesheet">
         <script src="https://cdn.tailwindcss.com"></script>
+        <div id="qr-reader" style="width:400px"></div>
         @vite('resources/css/app.css')
         @vite('resources/js/app.js')
     </head>
 
     <body class="bg-gradient-to-br from-purple-100 via-white to-purple-200">
 
-        <main class="px-10 py-4 mb-20">
+        <main class="px-10 py-4 mb-20 max-w-5xl mx-auto">
             <div class="">
                 <div class="w-full flex items-center justify-between py-10">
-                    <div class="text-2xl font-bold text-blue-900">Epass</div>
+                    <div class="text-2xl font-bold text-blue-900">{{ $company->name }}</div>
                     <div class="lg:flex items-center space-x-6 hidden">
                         <a href="#" class="text-gray-600 hover:text-gray-900 text-lg font-semibold">Have
                             Appointment</a>
@@ -97,7 +98,7 @@
                                         d="M9 5l7 7-7 7" />
                                 </svg>
                             </button>
-                            <button
+                            <button id="startButton"
                                 class="flex items-center px-6 py-3 bg-white text-blue-600 border border-blue-600 text-lg rounded-lg shadow-md hover:bg-blue-50">
                                 Scan QR
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none"
@@ -112,10 +113,16 @@
 
                 <!-- Decorative Scan Markers -->
                 <div class="">
+
+
+
                     <div>
-                        <div class="relative w-64 h-64 border border-gray-300 bg-gray-50">
+                        <div class="relative w-64 h-64 overflow-hidden border border-gray-300 bg-white">
                             <div class="absolute top-0 left-0 h-4 w-4 border-t-4 border-l-4 border-blue-500"></div>
                             <div class="absolute top-0 right-0 h-4 w-4 border-t-4 border-r-4 border-blue-500"></div>
+                            <div>
+                                <span id="reader" class="h-full w-full inset-0"></span>
+                            </div>
                             <div class="absolute bottom-0 left-0 h-4 w-4 border-b-4 border-l-4 border-blue-500"></div>
                             <div class="absolute bottom-0 right-0 h-4 w-4 border-b-4 border-r-4 border-blue-500"></div>
                         </div>
@@ -124,6 +131,52 @@
                 </div>
             </section>
         </main>
+
+        <script src="https://reeteshghimire.com.np/wp-content/uploads/2021/05/html5-qrcode.min_.js"></script>
+        <script>
+            function onScanSuccess(data) {
+                fetch("{{ route('qrcode.login') }}", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                        },
+                        body: JSON.stringify({
+                            data: data
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(result => {
+                        if (result == 1) {
+                            alert('Logged In')
+                            window.location.href = "{{ url('/') }}";
+                            return;
+                        } else {
+                            alert('There is no user with this QR code');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+
+            function debounce(func, wait) {
+                let timeout;
+                return function(...args) {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => func.apply(this, args), wait);
+                };
+            }
+
+            const debouncedOnScanSuccess = debounce(onScanSuccess, 700);
+
+            const html5QrcodeScanner = new Html5QrcodeScanner("reader", {
+                fps: 10,
+                qrbox: 250
+            });
+
+            html5QrcodeScanner.render(debouncedOnScanSuccess);
+        </script>
     </body>
 
 </html>

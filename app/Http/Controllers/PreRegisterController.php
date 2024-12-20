@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendPreRegisterInfo;
 use App\Models\Category;
 use App\Models\Company;
 use App\Models\PreRegistration;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use PhpParser\Node\Stmt\TryCatch;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class PreRegisterController extends Controller
 {
@@ -54,18 +57,29 @@ class PreRegisterController extends Controller
             'gender'        => 'required',
             'category'      => 'required|string|max:255',
             'address'       => 'nullable|string|max:1000',
-            'visit_date'    => 'required|date|after:today',
+            'visit_date'    => 'required|date|after_or_equal:today',
             'entry_time'    => 'required|date_format:H:i',
             'exit_time'     => 'required|date_format:H:i|after:entry_time',
             'notes'          => 'nullable|string|max:2000'
         ]);
 
-        PreRegistration::create(array_merge($data, ['company_id' => $company->id]));
+        $userData = PreRegistration::create(array_merge($data, ['company_id' => $company->id]));
+
+        $qrcode = QrCode::size(200)->generate($userData->email);
+
+        Mail::to($userData->email)->send(
+            new SendPreRegisterInfo(
+                qrcode: $qrcode,
+                userData: $userData,
+                company: $company,
+            )
+        );
+
         return redirect()->back()->with(['message' => 'You are successfully pregesitered for ' . $company->name]);
     }
 
     public function checkIn(Company $company)
     {
-        return view('filament.check-in');
+        return view('filament.check-in')->with(['company' => $company]);
     }
 }

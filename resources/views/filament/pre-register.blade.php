@@ -31,6 +31,7 @@
     @endif
 
     <body class="bg-gray-50">
+
         <!-- Container -->
         <div class="flex min-h-screen">
             <!-- Left Section -->
@@ -128,7 +129,8 @@
                                 <label class="block text-gray-700 mb-1">Visit Date</label>
                                 <input name="visit_date" type="date"
                                     class="w-full px-3 py-2 border rounded-md focus:outline-blue-500"
-                                    @error('visit_date') border-red-500 @enderror" value="{{ old('visit_date') }}">
+                                    @error('visit_date') border-red-500 @enderror" value="{{ old('visit_date') }}"
+                                    min="{{ \Carbon\Carbon::now()->toDateString() }}">
                                 @error('visit_date')
                                     <span class="text-red-500 text-sm">{{ $message }}</span>
                                 @enderror
