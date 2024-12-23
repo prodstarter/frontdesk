@@ -1,31 +1,11 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
-    <head>
-
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
-            rel="stylesheet">
-        <script src="https://cdn.tailwindcss.com"></script>
-        <div id="qr-reader" style="width:400px"></div>
-        @vite('resources/css/app.css')
-        @vite('resources/js/app.js')
-    </head>
-
-    <body class="bg-gradient-to-br from-purple-100 via-white to-purple-200">
+@extends('layouts.app')
+@section('content')
+    <div class="bg-gradient-to-br from-purple-100 via-white to-purple-200">
 
         <main class="px-10 py-4 mb-20 max-w-5xl mx-auto">
             <div class="">
                 <div class="w-full flex items-center justify-between py-10">
-                    <div class="text-2xl font-bold text-blue-900">{{ $company->name }}</div>
+                    <div class="text-2xl font-bold text-blue-900"> {{ Str::limit($company->name, 10, '...') }}</div>
                     <div class="lg:flex items-center space-x-6 hidden">
                         <a href="#" class="text-gray-600 hover:text-gray-900 text-lg font-semibold">Have
                             Appointment</a>
@@ -55,8 +35,8 @@
                     <div class="flex justify-between">
                         <div class="text-2xl font-bold text-blue-900">Epass</div>
                         <button class="" onclick="document.getElementById('mobileNav').style.display = 'none'">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="1.5" stroke="currentColor" class="size-8">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="size-8">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                             </svg>
                         </button>
@@ -177,6 +157,5 @@
 
             html5QrcodeScanner.render(debouncedOnScanSuccess);
         </script>
-    </body>
-
-</html>
+    </div>
+@endsection

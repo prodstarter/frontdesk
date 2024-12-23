@@ -4,6 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title> Frontdesk</title>
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -13,33 +14,16 @@
         <link
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
             rel="stylesheet">
-        <style>
-        </style>
-        @livewireStyles
-        @filamentStyles
         @vite('resources/css/app.css')
-
-        @livewire('notifications')
-        <!-- Scripts -->
-        @livewireScripts
-        @filamentScripts
         @vite('resources/js/app.js')
     </head>
 
     <body class="font-sans antialiased dark:text-white/50">
 
-        <main class="mx-auto">
-            <div>
-                <div class="text-black">
-                    @section('content')
-                    </div>
-                </div>
-            </main>
+        <main>
+            @yield('content')
+        </main>
 
-            <footer class="bg-slate-900 py-20 text-white">
-            </footer>
-        </body>
+    </body>
 
-        @yield('js')
-
-    </html>
+</html>

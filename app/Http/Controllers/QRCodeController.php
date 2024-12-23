@@ -10,13 +10,6 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class QRCodeController extends Controller
 {
-    public function generate()
-    {
-        $qrCode = QrCode::format('png')->size(300)->generate('Hello, Laravel 11!');
-
-        return view('filament.qrcode', compact('qrCode'));
-    }
-
     public function login(Request $request)
     {
         $success = 1;
