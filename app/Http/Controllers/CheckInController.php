@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\SendPreRegisterInfo;
 use App\Models\Category;
 use App\Models\Company;
 use App\Models\PreRegistration;
+use App\Models\Visit;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use PhpParser\Node\Stmt\TryCatch;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
-class PreRegisterController extends Controller
+class CheckInController extends Controller
 {
     public $default_categories = [
         'guests' => 'Guests',
@@ -28,24 +25,17 @@ class PreRegisterController extends Controller
         'others' => 'Others',
     ];
 
-    public function view($company_uuid)
+    public function create(Company $company, PreRegistration $preUser)
     {
-        $company = Company::where('uuid', $company_uuid);
-
-        if (empty($company_uuid) || !$company->exists()) {
-            abort(403, 'Invalid company id');
-        }
-
         $main_categories = Category::where('company_id', $company->first()->id)->get()->pluck('name', 'name')->toArray();
         $main_categories = array_change_key_case($main_categories, CASE_LOWER);
 
-
-        return view('pre-register.create')->with([
-            'company' => $company->first(),
+        return view('check-in.create')->with([
+            'company' => $company,
             'categories' =>  empty($main_categories) ? $this->default_categories : $main_categories,
+            'preUser' => $preUser,
         ]);
     }
-
 
     public function store(Request $request, Company $company)
     {
@@ -56,25 +46,18 @@ class PreRegisterController extends Controller
             'phone_number'  => 'required|min:10|max:20',
             'gender'        => 'required',
             'category'      => 'required|string|max:255',
-            'address'       => 'nullable|string|max:1000',
+            'address'       => 'required|string|max:1000',
             'visit_date'    => 'required|date|after_or_equal:today',
             'entry_time'    => 'required|date_format:H:i',
             'exit_time'     => 'required|date_format:H:i|after:entry_time',
             'notes'          => 'nullable|string|max:2000'
         ]);
 
-        $userData = PreRegistration::create(array_merge($data, ['company_id' => $company->id]));
+        // Visit::create(array_merge($data, [
+        //     'company_id' => '',
+        //     'uuid' => '',
+        // ]));
 
-        $qrcode = QrCode::size(200)->generate($userData->email);
-
-        Mail::to($userData->email)->send(
-            new SendPreRegisterInfo(
-                qrcode: $qrcode,
-                userData: $userData,
-                company: $company,
-            )
-        );
-
-        return redirect()->back()->with(['message' => 'You are successfully pregesitered for ' . $company->name]);
+        return redirect()->back();
     }
 }

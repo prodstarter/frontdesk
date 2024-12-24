@@ -127,12 +127,23 @@
                     })
                     .then(response => response.json())
                     .then(result => {
-                        if (result == 1) {
-                            alert('Logged In')
-                            window.location.href = "{{ route('check-in.create', $company->uuid) }}";
-                        } else {
-                            alert('There is no user with this QR code');
+                        if (result == 0) {
+                            alert('There is no user with this QR code')
+                            return
                         }
+
+                        console.log(result)
+
+                        const [status, preUser] = result
+
+                        alert('Logged In')
+
+                        const baseUrl = "/company";
+                        const companyUuid = "{{ $company->uuid }}";
+
+                        const url = `${baseUrl}/${companyUuid}/check-in/${preUser.id}`;
+
+                        window.location.href = url;
                     })
                     .catch(error => {
                         console.error('Error:', error);

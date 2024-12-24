@@ -72,29 +72,28 @@
             }
 
             .marketing-login-link {
-    display: inline-block;
-    background-color: #007bff;
-    color: #fff;
-    text-decoration: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
+                display: inline-block;
+                background-color: #007bff;
+                color: #fff;
+                text-decoration: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                font-size: 16px;
+                font-weight: bold;
+                text-align: center;
+                transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            }
 
-.marketing-login-link:hover {
-    background-color: #0056b3;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    text-decoration: none;
-}
+            .marketing-login-link:hover {
+                background-color: #0056b3;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                text-decoration: none;
+            }
 
-.marketing-login-link:active {
-    background-color: #004080;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
+            .marketing-login-link:active {
+                background-color: #004080;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            }
         </style>
     </head>
 
@@ -132,7 +131,7 @@
 
                 <p>Below is a QR to ease log in. </p>
 
-                <a href="{{ route('company.check-in', $company->uuid) }}" class="marketing-login-link">
+                <a href="{{ route('qrcode.create', [$company->uuid]) }}" class="marketing-login-link">
                     Log In To {{ $company->name }} Here
                 </a>
 

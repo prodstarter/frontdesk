@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\PreRegistration;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -10,7 +11,12 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class QRCodeController extends Controller
 {
-    public function login(Request $request)
+    public function create(Company $company)
+    {
+        return view('qrcode.create')->with(['company' => $company]);
+    }
+
+    public function store(Request $request)
     {
         $success = 1;
         $failure = 0;
@@ -21,16 +27,6 @@ class QRCodeController extends Controller
 
         if (! $preUser) return $failure;
 
-        $user = User::firstOrCreate(
-            ['email' => $preUser->email,],
-            [
-                'name' => "{$preUser->first_name} {$preUser->last_name}",
-                'password' => str()->random(),
-                'current_company_id' => $preUser->company_id,
-            ]
-        );
-
-        Auth::login($user);
-        return $success;
+        return [$success, $preUser];
     }
 }
