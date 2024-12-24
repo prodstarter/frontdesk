@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="bg-gradient-to-br from-purple-100 via-white to-purple-200">
+    <div class="bg-gradient-to-br from-purple-100 via-white to-purple-300">
 
         <main class="px-10 py-4 mb-20 max-w-5xl mx-auto">
             <div class="">
@@ -97,7 +97,7 @@
 
 
                     <div>
-                        <div class="relative w-64 h-64 overflow-hidden border border-gray-300 bg-white">
+                        <div class="relative w-64 h-72 overflow-hidden border border-gray-300 bg-white">
                             <div class="absolute top-0 left-0 h-4 w-4 border-t-4 border-l-4 border-blue-500"></div>
                             <div class="absolute top-0 right-0 h-4 w-4 border-t-4 border-r-4 border-blue-500"></div>
                             <div>
@@ -136,7 +136,7 @@
 
                         const [status, preUser] = result
 
-                        alert('Logged In')
+                        console.log('Logged In')
 
                         const baseUrl = "/company";
                         const companyUuid = "{{ $company->uuid }}";
@@ -162,7 +162,7 @@
 
             const html5QrcodeScanner = new Html5QrcodeScanner("reader", {
                 fps: 10,
-                qrbox: 250
+                qrbox: 200,
             });
 
             html5QrcodeScanner.render(debouncedOnScanSuccess);
