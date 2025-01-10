@@ -21,7 +21,7 @@
 
     <body class="font-sans antialiased dark:text-white/50">
 
-        <header class="bg-gradient-to-r from-blue-600 to-blue-400 text-white px-5 lg:px-44 pt-5 pb-28">
+        <header class="relative z-10 bg-gradient-to-r from-blue-600 to-blue-400 text-white px-5 lg:px-44 pt-5 pb-28">
 
             <div class="flex justify-between items-baseline">
                 <div>
@@ -69,7 +69,8 @@
                     <a href="#" class="hover:underline">How it Works</a>
                     <a href="#" class="hover:underline">Pricing</a>
                     <a href="#" class="hover:underline">Contact</a>
-                    <button class="py-2 px-7 border-white border-2 rounded-md hover:underline">Log In</button>
+                    <a href="{{ route('filament.company.auth.login') }}"
+                        class="py-2 px-7 border-white border-2 rounded-md hover:underline">Log In</a>
                     {{-- <a href="#" class="hover:underline">Pre-register</a>
                     <a href="#" class="hover:underline">Checkin</a>
                     <a href="#" class="hover:underline">Login</a>
@@ -84,14 +85,19 @@
 
                     <h4 class="text-md">Welcome your visitors with friendly sign-in and a smart security system.</h4>
 
-                    <button
-                        class="font-semibold py-2 px-7 tracking-wide text-md bg-gradient-to-r from-blue-900 to-blue-800 border-white border-2 rounded-md">
-                        GET STARTED
-                    </button>
+                    <div>
+                        <a href="{{ route('filament.company.tenant.registration') }}"
+                            class="font-semibold py-2 px-7 tracking-wide
+                         text-md bg-gradient-to-r from-blue-900
+                          to-blue-800 border-white border-2 rounded-md">
+                            GET STARTED
+                        </a>
+                    </div>
+
                 </div>
             </div>
-
         </header>
+
         <main class="">
 
             <div class="space-y-10 text-center bg-zinc-100 px-5 py-20  lg:px-44">
@@ -404,29 +410,7 @@
                 </div>
 
                 <!-- Social Media Links -->
-                <div class="space-x-4">
-                    <a href="#" class="hover:opacity-80">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor"
-                            viewBox="0 0 24 24">
-                            <path
-                                d="M22.675 0H1.325C.593 0 0 .593 0 1.325v21.351C0 23.406.593 24 1.325 24h11.495v-9.294H9.847v-3.622h2.973V8.413c0-2.937 1.79-4.54 4.406-4.54 1.252 0 2.331.093 2.646.135v3.072l-1.816.001c-1.423 0-1.697.677-1.697 1.669v2.187h3.394l-.443 3.622h-2.951V24h5.787c.73 0 1.324-.594 1.324-1.324V1.325C24 .593 23.406 0 22.675 0z" />
-                        </svg>
-                    </a>
-                    <a href="#" class="hover:opacity-80">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor"
-                            viewBox="0 0 24 24">
-                            <path
-                                d="M12 2.163c3.204 0 3.584.012 4.849.07 1.366.062 2.633.356 3.608 1.331.975.975 1.27 2.242 1.331 3.608.058 1.265.07 1.645.07 4.849s-.012 3.584-.07 4.849c-.062 1.366-.356 2.633-1.331 3.608-.975.975-2.242 1.27-3.608 1.331-1.265.058-1.645.07-4.849.07s-3.584-.012-4.849-.07c-1.366-.062-2.633-.356-3.608-1.331-.975-.975-1.27-2.242-1.331-3.608C2.175 15.584 2.163 15.204 2.163 12s.012-3.584.07-4.849c.062-1.366.356-2.633 1.331-3.608C4.539 2.587 5.806 2.293 7.172 2.232c1.265-.058 1.645-.07 4.849-.07zm0-2.163C8.798 0 8.403.014 7.114.072 5.836.13 4.614.496 3.663 1.447.768 3.337.13 5.584.072 7.862.014 8.798 0 9.193 0 12s.014 3.202.072 4.486c.058 2.278.496 4.524 1.447 5.475.951.951 3.197 1.389 5.475 1.447C8.798 23.986 9.193 24 12 24s3.202-.014 4.486-.072c2.278-.058 4.524-.496 5.475-1.447.951-.951 1.389-3.197 1.447-5.475.058-1.284.072-1.679.072-4.486s-.014-3.202-.072-4.486c-.058-2.278-.496-4.524-1.447-5.475-.951-.951-3.197-1.389-5.475-1.447C15.202.014 14.807 0 12 0z" />
-                        </svg>
-                    </a>
-                    <a href="#" class="hover:opacity-80">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor"
-                            viewBox="0 0 24 24">
-                            <path
-                                d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.723-.951.564-2.005.974-3.127 1.195-.897-.954-2.178-1.549-3.594-1.549-2.72 0-4.923 2.204-4.923 4.923 0 .386.044.762.128 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.423.725-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.808-.026-1.566-.248-2.228-.616v.062c0 2.386 1.698 4.374 3.946 4.827-.414.113-.849.173-1.296.173-.316 0-.624-.03-.926-.086.625 1.955 2.444 3.377 4.6 3.416-1.68 1.317-3.809 2.104-6.115 2.104-.398 0-.789-.023-1.175-.067 2.18 1.397 4.768 2.211 7.548 2.211 9.056 0 14.01-7.498 14.01-14.01 0-.213-.005-.426-.014-.637.961-.694 1.797-1.56 2.457-2.548l-.047-.02z" />
-                        </svg>
-                    </a>
-                </div>
+
             </div>
 
             <div class="mt-10 text-center text-sm">
