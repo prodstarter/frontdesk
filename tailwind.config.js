@@ -9,7 +9,12 @@ export default {
         "./vendor/filament/**/*.blade.php",
     ],
     theme: {
-        extend: {},
+        extend: {
+            clipPath: {
+                "curve-bottom":
+                    "polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%)",
+            },
+        },
     },
     plugins: [
         require("@tailwindcss/forms"),

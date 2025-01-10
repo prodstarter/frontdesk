@@ -5,6 +5,7 @@ use App\Filament\App\Pages\Auth\Register;
 use App\Http\Controllers\CheckInController;
 use App\Http\Controllers\PreRegisterController;
 use App\Http\Controllers\QRCodeController;
+use App\Http\Controllers\WelcomeController;
 use App\Livewire\CheckIn;
 use App\Livewire\CreateCheckin;
 use App\Livewire\CreatePreRegister;
@@ -17,6 +18,8 @@ Route::group(['middleware' => 'redirect.if.not.installed'], function () {
         ->name('filament.app.auth.register')
         ->middleware('signed');
 });
+
+Route::get('/', [WelcomeController::class, 'index']);
 
 // Route::get('/pre-register/{company:uuid}', [PreRegisterController::class, 'view']);
 // Route::post('/pre-register/{company:uuid}', [PreRegisterController::class, 'store'])->name('pre-register.store');
