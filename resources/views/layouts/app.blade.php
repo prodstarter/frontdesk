@@ -15,26 +15,15 @@
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
             rel="stylesheet">
         @livewireStyles
+
         @vite('resources/css/app.css')
         @vite('resources/js/app.js')
     </head>
 
     <body class="font-sans antialiased dark:text-white/50">
-        @if (session('message'))
-            <div
-                class="flex justify-center items-center transition-all duration-300 bg-gray-400 py-4 text-green-500 text-lg font-bold">
-                <p class="mr-4">{{ session('message') }}</p>
-                <button onclick="this.parentElement.style.display = 'none'">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="size-7 text-white bg-red-700">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-        @endif
+
         <main>
             @yield('content')
-            {{-- {{ $slot }} --}}
         </main>
 
         @livewireScripts

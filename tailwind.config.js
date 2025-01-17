@@ -10,10 +10,19 @@ export default {
     ],
     theme: {
         extend: {
+            keyframes: {
+                moveLeftRight: {
+                    "0%": { transform: "translateX(0)" },
+                    "100%": { transform: "translateX(4px)" },
+                },
+            },
             clipPath: {
                 "curve-bottom":
                     "polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%)",
             },
+        },
+        animation: {
+            moveLeftRight: "moveLeftRight 0.5s infinite alternate ease-in-out",
         },
     },
     plugins: [

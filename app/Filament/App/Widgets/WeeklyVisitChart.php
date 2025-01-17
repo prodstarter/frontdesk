@@ -95,7 +95,7 @@ class WeeklyVisitChart extends ApexChartWidget
             'series' => [
                 [
                     'name' => 'Visits per week',
-                    'data' => $data->map(fn(TrendValue $value) => $value->aggregate),
+                    // 'data' => $data->map(fn(TrendValue $value) => $value->aggregate),
                 ],
             ],
             'plotOptions' => [

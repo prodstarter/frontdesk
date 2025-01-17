@@ -54,7 +54,7 @@
 
         <!-- Main Content -->
         <section
-            class="flex flex-col md:flex-row justify-center md:justify-between items-center md:items-stretch gap-y-20
+            class="flex flex-col lg:flex-row justify-center lg:justify-between items-center lg:items-stretch gap-y-20
                  lg:gap-y-0 mt-20 w-full">
             <div>
                 <div class="text-left sm:max-w-3xl">
@@ -91,9 +91,6 @@
 
             <!-- Decorative Scan Markers -->
             <div class="">
-
-
-
                 <div>
                     <div class="relative w-[25rem] h-[20rem] overflow-hidden border border-gray-300 bg-white">
                         <div class="absolute top-0 left-0 h-4 w-4 border-t-4 border-l-4 border-blue-500"></div>
@@ -105,7 +102,6 @@
                         <div class="absolute bottom-0 right-0 h-4 w-4 border-b-4 border-r-4 border-blue-500"></div>
                     </div>
                 </div>
-
             </div>
         </section>
     </main>
@@ -119,16 +115,17 @@
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
+                        "Accept": "application/json",
                         "X-CSRF-TOKEN": "{{ csrf_token() }}"
                     },
                     body: JSON.stringify({
                         data: data
                     })
                 })
-                .then(response => response.json())
+                .then(response => response.json();)
                 .then(result => {
                     if (result == 0) {
-                        alert('There is no user with this QR code')
+                        console.log('There is no user with this QR code')
                         return
                     }
 

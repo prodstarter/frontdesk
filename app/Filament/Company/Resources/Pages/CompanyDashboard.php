@@ -2,10 +2,10 @@
 
 namespace App\Filament\Company\Pages;
 
+use App\Filament\App\Widgets\WeeklyVisitChart;
 use App\Filament\Company\Widgets\GeneralStatsOverview;
 use App\Filament\Company\Widgets\TodayVisits;
 use App\Filament\Company\Widgets\VisitsChart;
-use App\Filament\Company\Widgets\WeeklyVisitChart;
 use Filament\Pages\Dashboard as FilamentDashboard;
 
 class CompanyDashboard extends FilamentDashboard
@@ -20,10 +20,10 @@ class CompanyDashboard extends FilamentDashboard
     public function getWidgets(): array
     {
         return [
-            // GeneralStatsOverview::class,
-            // TodayVisits::class,
-            // WeeklyVisitChart::class,
-            // VisitsChart::class,
+            GeneralStatsOverview::class,
+            TodayVisits::class,
+            WeeklyVisitChart::class,
+            VisitsChart::class,
         ];
     }
 }

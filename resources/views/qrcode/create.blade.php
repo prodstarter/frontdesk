@@ -2,10 +2,10 @@
 @section('content')
     <div class="bg-gradient-to-br from-purple-100 via-white to-purple-300">
 
-        <main class="px-10 py-4 mb-20 max-w-7xl mx-auto">
+        <main class="px-10 py-4 mb-20 max-w-5xl mx-auto">
             <div class="">
                 <div class="w-full flex items-center justify-between py-10">
-                    <div class="text-2xl font-bold text-blue-900"> {{ Str::limit($company->name, 10, '...') }}</div>
+                    <div class="text-2xl font-bold text-blue-900"> {{ Str::limit($company->name, 20, '...') }}</div>
                     <div class="lg:flex items-center space-x-6 hidden">
                         <a href="#" class="text-gray-600 hover:text-gray-900 text-lg font-semibold">Have
                             Appointment</a>
@@ -56,7 +56,7 @@
 
             <!-- Main Content -->
             <section
-                class="flex flex-col md:flex-row justify-center md:justify-between items-center md:items-stretch gap-y-20
+                class="flex flex-col lg:flex-row justify-center lg:justify-between items-center lg:items-stretch gap-y-20
                  lg:gap-y-0 mt-20 w-full">
                 <div>
                     <div class="text-left sm:max-w-3xl">
@@ -78,7 +78,7 @@
                                         d="M9 5l7 7-7 7" />
                                 </svg>
                             </button>
-                            <button id="startScanButton"
+                            <button id="startButton"
                                 class="flex items-center px-6 py-3 bg-white text-blue-600 border border-blue-600 text-lg rounded-lg shadow-md hover:bg-blue-50">
                                 Scan QR
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none"
@@ -93,9 +93,6 @@
 
                 <!-- Decorative Scan Markers -->
                 <div class="">
-
-
-
                     <div>
                         <div class="relative w-[25rem] h-[20rem] overflow-hidden border border-gray-300 bg-white">
                             <div class="absolute top-0 left-0 h-4 w-4 border-t-4 border-l-4 border-blue-500"></div>
@@ -107,7 +104,6 @@
                             <div class="absolute bottom-0 right-0 h-4 w-4 border-b-4 border-r-4 border-blue-500"></div>
                         </div>
                     </div>
-
                 </div>
             </section>
         </main>
@@ -167,36 +163,6 @@
                     width: 300
                 },
             });
-
-            let isScanning = false;
-
-            async function requestCameraAccess() {
-                try {
-                    const stream = await navigator.mediaDevices.getUserMedia({
-                        video: true
-                    });
-                    if (!isScanning) {
-                        isScanning = true;
-                        html5QrcodeScanner.scan(stream, {
-                            callback: (decodedText, decodedResult) => {
-                                console.log("Decoded QR Code:", decodedText);
-                                html5QrcodeScanner.stop();
-                                isScanning = false;
-                            },
-                            onerror: (errorMessage) => {
-                                console.error("Scanning error:", errorMessage);
-                                isScanning = false;
-                            },
-                        });
-                    } else {
-                        console.log("Scanner is already running.");
-                    }
-                } catch (error) {
-                    console.error("Error accessing camera:", error);
-                }
-            }
-
-            document.getElementById('startScanButton').addEventListener('click', () => requestCameraAccess())
 
             html5QrcodeScanner.render(debouncedOnScanSuccess);
         </script>

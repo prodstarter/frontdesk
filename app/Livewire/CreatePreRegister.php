@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Mail\CheckInVisitor;
 use App\Mail\SendPreRegisterInfo;
 use App\Models\Category;
 use App\Models\Company;
@@ -82,6 +83,15 @@ class CreatePreRegister extends Component
             )
         );
 
+
+
+        Mail::to((env('MAIL_FROM_ADDRESS')))->send(
+            new CheckInVisitor(
+                userData: $userData,
+                company: $this->company,
+            )
+        );
+
         $this->reset([
             'first_name',
             'last_name',
@@ -96,7 +106,7 @@ class CreatePreRegister extends Component
             'notes',
         ]);
 
-        session()->flash('message', 'You are successfully pre-registered for ' . $this->company->name);
+        request()->session()->flash('message', 'You are successfully pre-registered ' . $userData->first_name . ' for ' . $this->company->name);
     }
 
     public function render()

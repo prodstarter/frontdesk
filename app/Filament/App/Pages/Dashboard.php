@@ -17,9 +17,9 @@ class Dashboard extends FilamentDashboard
     public function getWidgets(): array
     {
         return [
-            // GeneralStatsOverview::class,
-            // TodayVisits::class,
-            // WeeklyVisitChart::class,
+            GeneralStatsOverview::class,
+            TodayVisits::class,
+            WeeklyVisitChart::class,
         ];
     }
 }

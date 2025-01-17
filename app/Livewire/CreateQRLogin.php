@@ -1,4 +1,4 @@
-<?php
+`<?php
 
 namespace App\Livewire;
 
@@ -44,4 +44,4 @@ class CreateQRLogin extends Component
     {
         return view('livewire.create-q-r-login');
     }
-}
+}`

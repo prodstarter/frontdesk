@@ -37,6 +37,8 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Wallo\FilamentCompanies\FilamentCompanies;
 use Wallo\FilamentCompanies\Pages\Company\CreateCompany;
 use Wallo\FilamentCompanies\Pages\User\Profile;
+use Leandrocfe\FilamentApexCharts\FilamentApexChartsPlugin;
+
 
 class FilamentCompaniesServiceProvider extends PanelProvider
 {
@@ -52,6 +54,7 @@ class FilamentCompaniesServiceProvider extends PanelProvider
             ->homeUrl(static fn(): string => '')
             // ->homeUrl(static fn(): string => url(Pages\Dashboard::getUrl(panel: 'company', tenant: Auth::user()?->personalCompany())))
             ->plugin(
+                FilamentApexChartsPlugin::make(),
                 FilamentCompanies::make()
                     ->userPanel('admin')
                     ->switchCurrentCompany()

@@ -21,17 +21,11 @@ Route::group(['middleware' => 'redirect.if.not.installed'], function () {
 
 Route::get('/', [WelcomeController::class, 'index']);
 
-// Route::get('/pre-register/{company:uuid}', [PreRegisterController::class, 'view']);
-// Route::post('/pre-register/{company:uuid}', [PreRegisterController::class, 'store'])->name('pre-register.store');
+Route::get('/company/qr-login/{company:uuid}', [QRCodeController::class, 'create'])->name('qrcode.create');
+Route::post('/comapny/qr-login', [QRCodeController::class, 'store'])->name('qrcode.store');
 
-// Route::get('/company/{company:uuid}/check-in/{preregistration:id}', [CheckInController::class, 'create'])->name('check-in.create');
-// Route::post('/company/{company:uuid}/check-in', [CheckInController::class, 'store'])->name('check-in.store');
-
-// Route::get('/company/qr-login/{company:uuid}', [QRCodeController::class, 'create'])->name('qrcode.create');
-// Route::post('/comapny/qr-login', [QRCodeController::class, 'store'])->name('qrcode.store');
-
-Route::get('/company/qr-login/{company:uuid}', CreateQRLogin::class)->name('qrcode.create');
+// Route::get('/company/qr-login/{company:uuid}', CreateQRLogin::class)->name('qrcode.create');
 
 Route::get('/company/{company:uuid}/check-in/{preregistration:id}', CreateCheckin::class)->name('check-in.create');
 
-Route::get('/pre-register/{company:uuid}', CreatePreRegister::class);
+Route::get('/pre-register/{company:uuid}', CreatePreRegister::class)->name('pre-register');
